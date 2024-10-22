@@ -149,10 +149,13 @@ class FileManager:
         return result
 
 def init_browser() -> webdriver.Chrome:
-    try:
-        
+    try:        
         options = chrome_browser_options()
         service = ChromeService(ChromeDriverManager().install())
+
+        options.add_argument("--remote-debugging-port=9222")
+        options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"  # Update this path to your Chrome installation
+
         return webdriver.Chrome(service=service, options=options)
     except Exception as e:
         raise RuntimeError(f"Failed to initialize browser: {str(e)}")
